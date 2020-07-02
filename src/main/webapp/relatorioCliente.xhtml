@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"  xmlns:f="http://java.sun.com/jsf/core"  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" >
+	<ui:composition template="/template/xhtml/template.xhtml">
+		<ui:define name="tituloPagina">Relatório de clientes</ui:define>
+		<ui:define name="tituloPrincipal">Relatório de clientes</ui:define>
+		<ui:define name="tituloSecundario">buscar clientes pelo CPF</ui:define>
+		<ui:define name="conteudo">
+			<p:panelGrid columns="3" style="margin-bottom: 30px;">				
+				<p:outputLabel for="n2" value="CPF:" />
+				<p:inputMask id="n2" value="#{clienteBean.cpf}" mask="999.999.999-99" />
+				<p:message for="n2" />
+			</p:panelGrid>
+			<p:dataTable id="clientes" var="cliente" value="#{clienteBean.clientes}" emptyMessage="Nenhum cliente encontrado">
+				<p:column headerText="ID">
+					<h:outputText value="#{cliente.id}" />
+				</p:column>
+				<p:column headerText="Nome">
+					<h:outputText value="#{cliente.nome}" />
+				</p:column>
+				<p:column headerText="E-mail">
+					<h:outputText value="#{cliente.email}" />
+				</p:column>
+				<p:column headerText="Nascimento">
+					<h:outputText value="#{cliente.nascimento}" />
+				</p:column>
+				<p:column headerText="CPF">
+					<h:outputText value="#{cliente.cpf}" />
+				</p:column>
+				<p:column headerText="Telefone">
+					<h:outputText value="#{cliente.telefone}" />
+				</p:column>
+				<p:column headerText="Renda">
+					<h:outputText value="#{cliente.renda}">
+						<f:convertNumber type="currency" currencySymbol="$" maxIntegerDigits="5" maxFractionDigits="2" />
+               	 	</h:outputText>
+				</p:column>
+			</p:dataTable>
+		</ui:define>
+		<ui:define name="botoesAcao">
+			<p:commandButton value="Buscar" action="#{clienteBean.buscarClienteCpf()}" update="@form" />
+		</ui:define>
+	</ui:composition>
+</html>

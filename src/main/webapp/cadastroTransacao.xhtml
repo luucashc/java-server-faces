@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+	<ui:composition template="/template/xhtml/template.xhtml">
+	<ui:define name="tituloPagina">Realizar transação</ui:define>
+		<ui:define name="tituloPrincipal">Transação</ui:define>
+		<ui:define name="tituloSecundario">efetuar uma transação</ui:define>
+		<ui:define name="conteudo">
+			<p:panelGrid columns="3" style="margin: 0 auto 30;">
+				<p:outputLabel for="n1" value="Número:" />
+				<p:inputMask id="n1" value="#{transacaoBean.numero}" mask="9999 9999 9999 9999" />
+				<p:message for="n1" />
+				
+				<p:outputLabel for="n2" value="CVV:" />
+				<p:inputMask id="n2" value="#{transacaoBean.cvv}" mask="999" />
+				<p:message for="n2" />
+				
+				<p:outputLabel for="n3" value="Tipo da transação:" />
+				<p:selectOneRadio id="n3" value="#{transacaoBean.tipo_transacao}" unselectable="true">
+           			<f:selectItem itemLabel="Débito" itemValue="debito" />
+            		<f:selectItem itemLabel="Crédito" itemValue="credito" />
+        		</p:selectOneRadio>
+				<p:message for="n3" />
+				
+				<p:outputLabel for="n4" value="Valor da transação:" />
+					<p:inputNumber id="n4" value="#{transacaoBean.valor_transacao}" decimalPlaces="2" decimalSeparator="," thousandSeparator="." />
+				<p:message for="n4" />
+				
+				<p:outputLabel for="n5" value="Credor:" />
+					<p:inputText id="n5" value="#{transacaoBean.credor}" />
+				<p:message for="n5" />
+			</p:panelGrid>	
+		</ui:define>
+		<ui:define name="botoesAcao">
+			<p:commandButton value="Finalizar" action="#{transacaoBean.cadastrar()}" update="@form" />
+		</ui:define>
+	</ui:composition>
+</html>

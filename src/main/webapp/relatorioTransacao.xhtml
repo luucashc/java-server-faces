@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+	<ui:composition template="/template/xhtml/template.xhtml">
+		<ui:define name="tituloPagina">Relatório de transações</ui:define>
+		<ui:define name="tituloPrincipal">Relatório de transações</ui:define>
+		<ui:define name="tituloSecundario">buscar transações pelo cartão</ui:define>
+		<ui:define name="conteudo">
+			<p:panelGrid columns="3" style="margin-bottom: 30px;">				
+				<p:outputLabel for="n2" value="Número do cartão:" />
+				<p:inputMask id="n2" value="#{transacaoBean.numCartao}" mask="9999 9999 9999 9999" />
+				<p:message for="n2" />
+			</p:panelGrid>
+			<p:dataTable id="transacoes" var="transacao" value="#{transacaoBean.transacoes}" emptyMessage="Nenhuma transação encontrado">
+				<p:column headerText="ID">
+					<h:outputText value="#{transacao.id}" />
+				</p:column>
+				<p:column headerText="Nome do cliente">
+					<h:outputText value="#{transacao.cartao.cliente.nome}" />
+				</p:column>
+				<p:column headerText="Número do cartao">
+					<h:outputText value="#{transacao.cartao.numero}" />
+				</p:column>
+				<p:column headerText="Tipo da transação">
+					<h:outputText value="#{transacao.tipo_transacao}" />
+				</p:column>
+				<p:column headerText="Valor transação">
+					<h:outputText value="#{transacao.valor_transacao}" />
+				</p:column>
+				<p:column headerText="Credor">
+					<h:outputText value="#{transacao.credor}" />
+				</p:column>
+				<p:column headerText="Data transação">
+					<h:outputText value="#{transacao.data}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+			</p:dataTable>
+		</ui:define>
+		<ui:define name="botoesAcao">
+			<p:commandButton value="Buscar" action="#{transacaoBean.buscarTransacoesCartao}" update="@form" />
+		</ui:define>
+	</ui:composition>
+</html>

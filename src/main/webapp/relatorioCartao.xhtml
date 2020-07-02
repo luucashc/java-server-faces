@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"  xmlns:f="http://java.sun.com/jsf/core"  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" >
+	<ui:composition template="/template/xhtml/template.xhtml">
+		<ui:define name="tituloPagina">Relatório de cartões</ui:define>
+		<ui:define name="tituloPrincipal">Relatório de cartões</ui:define>
+		<ui:define name="tituloSecundario">buscar cartões pelo CPF</ui:define>
+		<ui:define name="conteudo">
+			<p:panelGrid columns="3" style="margin-bottom: 30px;">				
+				<p:outputLabel for="n2" value="CPF:" />
+				<p:inputMask id="n2" value="#{cartaoBean.cpf}" mask="999.999.999-99" />
+				<p:message for="n2" />
+			</p:panelGrid>
+			<p:dataTable id="cartoes" var="cartao" value="#{cartaoBean.cartoes}" emptyMessage="Nenhum cartão encontrado">
+				<p:column headerText="Nome cliente:">
+					<h:outputText value="#{cartao.cliente.nome}" />
+				</p:column>
+				<p:column headerText="Número do cartão">
+					<h:outputText value="#{cartao.numero}" />
+				</p:column>
+				<p:column headerText="CVV">
+					<h:outputText value="#{cartao.cvv}" />
+				</p:column>
+				<p:column headerText="Vencimento">
+					<h:outputText value="#{cartao.vencimento}" />
+				</p:column>
+				<p:column headerText="Limite">
+					<h:outputText value="#{cartao.limite}">
+						<f:convertNumber type="currency"
+                			currencySymbol="$"
+                   			maxIntegerDigits="7"
+                    		maxFractionDigits="3" />
+            		</h:outputText>
+				</p:column>
+				<p:column headerText="Criação">
+					<h:outputText value="#{cartao.data_criacao}" />
+				</p:column>
+			</p:dataTable>
+		</ui:define>
+		<ui:define name="botoesAcao">
+			<p:commandButton value="Buscar" action="#{cartaoBean.buscarCartoesCpf()}" update="@form" />
+		</ui:define>
+	</ui:composition>
+</html>

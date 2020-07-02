@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"  xmlns:f="http://java.sun.com/jsf/core"  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" >
+	<ui:composition template="/template/xhtml/template.xhtml">
+		<ui:define name="tituloPagina">Consulta de transação</ui:define>
+		<ui:define name="tituloPrincipal">Consulta de transação</ui:define>
+		<ui:define name="tituloSecundario">consulta transações de um cliente</ui:define>
+		<ui:define name="conteudo">
+			<p:panelGrid columns="3" style="margin-bottom: 30px;">				
+				<p:outputLabel for="n2" value="CPF:" />
+				<p:inputMask id="n2" value="#{consultaBean.cpf}" mask="999.999.999-99" />
+				<p:message for="n2" />
+				
+				<p:outputLabel for="n3" value="Data inicial:" />
+           	 	<p:calendar id="n3" value="#{consultaBean.dataPesquisaInicial}" mask="99/99/9999" pattern="dd/MM/yyyy" />
+          	 	<p:message for="n3" />
+          	 	 
+          	 	<p:outputLabel for="n4" value="Data final:" />
+           		<p:calendar id="n4" value="#{consultaBean.dataPesquisaFinal}" mask="99/99/9999" pattern="dd/MM/yyyy" />
+          	 	<p:message for="n4" />
+			</p:panelGrid>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6">
+						<p:chart rendered="#{consultaBean.pieModel1 ne null}" type="pie" model="#{consultaBean.pieModel1}" style="width:400px;height:300px" />
+					</div>
+					<div class="col-md-6">
+						<p:chart rendered="#{consultaBean.pieModel2 ne null}" type="pie" model="#{consultaBean.pieModel2}" style="width:400px;height:300px" />
+					</div>
+				</div>
+			</div>
+		</ui:define>
+		<ui:define name="botoesAcao">
+			<p:commandButton value="Buscar" action="#{consultaBean.consultarCartoesCpf()}" update="@form" />
+		</ui:define>
+	</ui:composition>
+</html>

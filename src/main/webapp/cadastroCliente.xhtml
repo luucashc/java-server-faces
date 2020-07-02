@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+	<ui:composition template="/template/xhtml/template.xhtml">
+		<ui:define name="tituloPagina">Cadastro de clientes</ui:define>
+		<ui:define name="tituloPrincipal">Cliente</ui:define>
+		<ui:define name="tituloSecundario">cadastrar cliente</ui:define>
+		<ui:define name="conteudo">
+			<p:panelGrid columns="3" style="margin-bottom: 50px;">
+				<p:outputLabel for="n1" value="Nome:" />
+				<p:inputText id="n1" value="#{clienteBean.cliente.nome}" />
+				<p:message for="n1" />
+
+				<p:outputLabel for="n2" value="E-mail:" />
+				<p:inputText id="n2" value="#{clienteBean.cliente.email}" />
+				<p:message for="n2" />
+
+				<p:outputLabel for="n3" value="Nascimento:" />
+				<p:inputMask id="n3" value="#{clienteBean.cliente.nascimento}" mask="99/99/9999" />
+				<p:message for="n3" />
+
+				<p:outputLabel for="n4" value="CPF:" />
+				<p:inputMask id="n4" value="#{clienteBean.cliente.cpf}" mask="999.999.999-99" />
+				<p:message for="n4" />
+
+				<p:outputLabel for="n5" value="telefone:" />
+				<p:inputMask id="n5" value="#{clienteBean.cliente.telefone}" mask="(99) 99999-9999" />
+				<p:message for="n5" />
+
+				<p:outputLabel for="n6" value="Renda:" />
+				<p:inputNumber id="n6" value="#{clienteBean.cliente.renda}" decimalPlaces="2" decimalSeparator="," thousandSeparator="." />
+				<p:message for="n6" />
+			</p:panelGrid>	
+			<p:dataTable id="clientes" var="cliente" value="#{clienteBean.clientes}" emptyMessage="Nenhum cliente encontrado">
+				<p:column headerText="ID">
+					<h:outputText value="#{cliente.id}" />
+				</p:column>
+				<p:column headerText="Nome" filterBy="#{cliente.nome}">
+					<h:outputText value="#{cliente.nome}" />
+				</p:column>
+				<p:column headerText="E-mail">
+					<h:outputText value="#{cliente.email}" />
+				</p:column>
+				<p:column headerText="Nascimento">
+					<h:outputText value="#{cliente.nascimento}" />
+				</p:column>
+				<p:column headerText="CPF">
+					<h:outputText value="#{cliente.cpf}" />
+				</p:column>
+				<p:column headerText="Telefone">
+					<h:outputText value="#{cliente.telefone}" />
+				</p:column>
+				<p:column headerText="Renda">
+					<h:outputText value="#{cliente.renda}">
+						<f:convertNumber type="currency" currencySymbol="$" maxIntegerDigits="5" maxFractionDigits="2" />
+                	</h:outputText>
+				</p:column>
+				<p:column headerText="Ações">
+					<p:commandButton value="Editar" action="#{clienteBean.paraEditar(cliente)}" immediate="true" update="@form" resetValues="true" />
+					<p:commandButton value="Excluir" action="#{clienteBean.excluir(cliente)}" update="@form" immediate="true">
+					<p:confirm header="Confirmação" message="Você tem certeza que deseja excluir esse cliente?" icon="pi pi-exclamation-triangle" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+		</ui:define>
+		<ui:define name="botoesAcao">
+			<p:commandButton rendered="#{clienteBean.cliente.id eq null}" value="Cadastrar" action="#{clienteBean.cadastrar()}" update="@form" />
+			<p:commandButton rendered="#{clienteBean.cliente.id ne null}" value="Atualizar" action="#{clienteBean.editar()}" update="@form" />
+			<p:commandButton rendered="#{clienteBean.cliente.id ne null}" value="Cancelar" action="#{clienteBean.cancelarEdicao()}" update="@form" />
+		</ui:define>
+	</ui:composition>
+</html>

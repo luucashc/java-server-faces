@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+	<ui:composition template="/template/xhtml/template.xhtml">
+		<ui:define name="tituloPagina">Cadastro de cartões</ui:define>
+		<ui:define name="tituloPrincipal">Cartão</ui:define>
+		<ui:define name="tituloSecundario">cadastrar cartão</ui:define>
+		<ui:define name="conteudo">
+			<p:panelGrid columns="3" >
+				<p:outputLabel for="n1" value="Dono do cartão:" />
+				<p:selectOneMenu id="n1" value="#{cartaoBean.cartao.cliente}" converter="omnifaces.SelectItemsIndexConverter">
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione" />
+					<f:selectItems value="#{clienteBean.clientes}" var="cliente" itemLabel="#{cliente.nome}" itemValue="#{cliente}" />
+				</p:selectOneMenu>
+				<p:message for="n1" />
+				
+				<p:outputLabel for="n2" value="Limite:" />
+				<p:inputNumber id="n2" value="#{cartaoBean.cartao.limite}" decimalPlaces="2" decimalSeparator="," thousandSeparator="." />
+				<p:message for="n2" />
+			</p:panelGrid>
+			<div style="max-width: 265px; height: 160px; margin-top: 50px; border: solid 1px grey; border-radius: 10px; background-color: #184069; position: relative;">
+				<img src="img/mastercard.png" style="width: 70px; height: auto; position: absolute; right: 0; top: 12px;"/>
+				<H6 style="position: absolute; top: 30px; color: #FFFFFF; left: 20px;">CCLHCG</H6>
+				<p:outputLabel class="numero" style="position: absolute; bottom: 45px; left: 20px; color: #FFFFFF;" value="#{cartaoBean.numExibir}" />
+				<p:outputLabel class="cvv" style="position: absolute; bottom: 0px; right: 60px; color: #FFFFFF;" value="#{cartaoBean.cvvExibir}" />
+				<p:outputLabel style="position: absolute; bottom: 23px; color: #FFFFFF; left: 20px" value="#{cartaoBean.nomeExibir}" />
+				<p:outputLabel style="position: absolute; bottom: 0px; color: #FFFFFF; left: 20px" value="#{cartaoBean.dataExibir}" />
+			</div>		
+		</ui:define>
+		<ui:define name="botoesAcao">
+			<p:commandButton value="Cadastrar" action="#{cartaoBean.cadastrar()}" update="@form" />
+		</ui:define>
+	</ui:composition>
+</html>
