@@ -1,3 +1,3 @@
 ## JSF project
 
-####Unordered list (*)
+####Unordered list
